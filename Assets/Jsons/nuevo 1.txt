@@ -1,0 +1,102 @@
+M1:
+Sensing: 	2:59pm
+Sampling: 	2:59pm
+Sensing: 	3:00pm
+Sensing:	3:03pm
+Sensing:	3:05pm
+Sensing: 	3:07pm
+Sensing:	3:09pm
+Sensing: 	3:11pm
+Sensing: 	3:13pm
+Sensing: 	3:15pm
+Sensing:	3:17pm
+Sensing: 	3:19pm
+Sensing:	3:22pm
+Sampling:	3:22pm
+Sensing: 	
+
+
+
+
+
+
+
+M1:
+Sensing: 	3:42pm
+Sampling: 	3:42pm
+Sensing:	3:45pm
+Sensing: 	3:47pm
+...
+Sampling: 	4:04pm
+Sensing: 	4:06pm
+...
+Sampling:	4:27pm
+Sensindg:	4:29pm
+...
+Sampling:	4:51pm
+Sensing: 	4:53pm
+...
+Sampling:	5:13pm
+Sensing: 	5:15pm
+...
+Sampling: 	5:36pm
+Sensing:	5:39pm
+...
+Sending: 	5:47pm
+...
+Sensing: 	5:51pm
+Sampling: 	5:51pm
+...
+Sensing: 	6:14pm
+Sampling: 	6:16pm
+...
+Sensing: 	8:28pm
+Sensing: 	8:30pm
+Sensing: 	8:32pm
+Sensing: 	8:34pm
+...
+Sensing: 	8:47pm
+Sampling: 	8:47pm
+...
+Sensing: 	9:10pm
+Sampling: 	9:10pm
+...
+Sensing: 	9:33pm
+Sampling: 	9:33pm
+...
+Sensing: 	9:57pm
+Sampling: 	9:57pm
+...
+Sending: 	10:07pm
+
+(Se está tardando 2hrs 10min)
+
+
+
+TODO: Debuggear línea 204 del algorithm.c para checar por qué solo guardo 30 samples, qué pasa con el counters.COUNTER_SamplesDone
+
+
+
+
+
+
+
+
+
+
+
+crear arreglo muy grande en el main para ir registrando las "escrituras" de LoRa
+	SendLoRaData(data, counters.COUNTER_SamplesDone+1); // TODO: falta multiplicar por 5 el length
+	
+	
+	
+preguntar sobre el SendLoRaData:  le mando un arreglo? populo un arreglo? o le mando un punto?
+
+
+
+
+Start: 	2:41pm
+Sample: 3:04pm
+Sample: 3:26pm
+Sample: 4:00pm
+Sending: 5:22pm
