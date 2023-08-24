@@ -6,23 +6,38 @@ using UnityEngine.Tilemaps;
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
-    int tutorial;
+    Tile unit;
 
     [SerializeField]
-    bool inverted;
+    bool tutorial;
+
+    [SerializeField]
+    int tutorialNumber = 0;
+    
+    [SerializeField]
+    int size;
 
     [SerializeField]
     Coordinate begin = new Coordinate();
 
     Tilemap maze;
     Map newMap;
-
-    Coordinate offset = new Coordinate(5, 5);
-
-    const int maxX = 8;
-    const int maxY = 8;
-
+    
     string path = "Assets/Jsons/GeneratedMap.json";
+
+    public void Template()
+    {
+        maze = GetComponent<Tilemap>();
+        maze.ClearAllTiles();
+
+        for (int i = 0; i <= size - 1; i++)
+        {
+            for (int j = 0; j <= size - 1; j++)
+            {
+                maze.SetTile(new Vector3Int(i, j, 0), unit);
+            }
+        }
+    }
 
     public void Create()
     {
@@ -36,25 +51,27 @@ public class MapCreator : MonoBehaviour
         newMap.safes = new List<Coordinate>();
         newMap.empty = new List<Coordinate>();
         newMap.blockers = new List<Coordinate>();
-        newMap.tutorial = tutorial;
+        newMap.size = size;
 
-        for (int i = 0; i <= maxX; i++)
+        if (tutorial)
         {
-            for (int j = 0; j <= maxY; j++)
+            newMap.tutorial = tutorialNumber;
+        }
+        else
+        {
+            newMap.tutorial = -1;
+        }
+
+        for (int i = 0; i <= size - 1; i++)
+        {
+            for (int j = 0; j <= size - 1; j++)
             {
-                TileBase tile = maze.GetTile(new Vector3Int(i- offset.x, j - offset.y, 0));
+                TileBase tile = maze.GetTile(new Vector3Int(i, j, 0));
                 if (tile != null)
                 {
                     if ("Unit" == tile.name)
                     {
-                        if (!inverted)
-                        {
-                            newMap.units.Add(new Coordinate(i, j));
-                        }
-                        else
-                        {
-                            newMap.empty.Add(new Coordinate(i, j));
-                        }
+                        newMap.units.Add(new Coordinate(i, j));
                     }
                     else if ("End" == tile.name)
                     {
@@ -80,14 +97,7 @@ public class MapCreator : MonoBehaviour
                 }
                 else
                 {
-                    if (!inverted)
-                    {
-                        newMap.empty.Add(new Coordinate(i, j));
-                    }
-                    else
-                    {
-                        newMap.units.Add(new Coordinate(i, j));
-                    }
+                    newMap.empty.Add(new Coordinate(i, j));
                 }
             }
         }

@@ -14,8 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     Animator anim;
-
-    bool isMoveRAnimationRunning = false;
+    
     Vector3 updatedPosition = new Vector3();
     Vector3 deltaPosition = new Vector3();
     bool canMoveAgain = true;
@@ -245,10 +244,5 @@ public class PlayerController : MonoBehaviour
     public Coordinate GetPosition()
     {
         return currentPosition;
-    }
-
-    public void MoveAnimationFinished()
-    {
-        isMoveRAnimationRunning = false;
     }
 }

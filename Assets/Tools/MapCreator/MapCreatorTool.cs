@@ -6,7 +6,6 @@ using UnityEngine;
 [CustomEditor(typeof(MapCreator))]
 public class MapCreatorTool : Editor
 {
-    /* Comment these function to build project */
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -15,6 +14,11 @@ public class MapCreatorTool : Editor
         if (GUILayout.Button("Create Map"))
         {
             creator.Create();
+        }
+
+        if (GUILayout.Button("Create Template"))
+        {
+            creator.Template();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Map
 {
+    public int size;
     public List<Coordinate> units;
     public List<Coordinate> empty;
     public List<Coordinate> safes;
