@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_Old : MonoBehaviour
 {
-    private static PlayerController instance;
-    public static PlayerController GetInstance { get { return instance; } }
+    private static PlayerController_Old instance;
+    public static PlayerController_Old GetInstance { get { return instance; } }
 
     Coordinate initialPosition;
     Coordinate finalPosition;

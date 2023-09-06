@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapController : MonoBehaviour
+public class MapController_Old : MonoBehaviour
 {
-    private static MapController instance;
-    public static MapController GetInstance { get { return instance; } }
+    private static MapController_Old instance;
+    public static MapController_Old GetInstance { get { return instance; } }
 
     [SerializeField]
     Tile unit;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapGenerator : MonoBehaviour
+public class MapController : MonoBehaviour
 {
-    private static MapGenerator instance;
-    public static MapGenerator GetInstance { get { return instance; } }
+    private static MapController instance;
+    public static MapController GetInstance { get { return instance; } }
 
     [SerializeField]
     Tilemap maze;
@@ -26,6 +26,8 @@ public class MapGenerator : MonoBehaviour
     Tile portalIn;
     [SerializeField]
     Tile portalOut;
+    [SerializeField]
+    Tile[] borders;
 
     [SerializeField]
     private TextAsset json;
@@ -34,7 +36,12 @@ public class MapGenerator : MonoBehaviour
 
     private const int MIN_SIZE = 9;
     private float[] SCALE_FACTORS = { 0, 0.1f, 0.175f, 0.25f, 0.3f, 0.35f, 0.4f, 0.45f, 0.475f, 0.5f, 0.525f };
-    
+
+    const int BORDER_L = 0;
+    const int BORDER_R = 1;
+    const int BORDER_U = 2;
+    const int BORDER_D = 3;
+
     private void Awake()
     {
         if ((instance != null) && (instance != this))
@@ -51,7 +58,7 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         levelsInJson = JsonUtility.FromJson<Levels>(json.text);
-        GenerateRequestedMap(levelsInJson.levels[1]);
+        GenerateRequestedMap(levelsInJson.levels[0]);
     }
 
     private void Update()
@@ -61,7 +68,7 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateRequestedMap(Map requestedMap)
     {
-        AdjustScale(requestedMap.size);
+        //AdjustScale(requestedMap.sizeX);
 
         List<Coordinate> units = requestedMap.units;
 
@@ -82,6 +89,34 @@ public class MapGenerator : MonoBehaviour
         foreach (Coordinate coordinate in blockers)
         {
             maze.SetTile(new Vector3Int(coordinate.x, coordinate.y, 0), blocker);
+        }
+
+        List<Coordinate> bordersL = requestedMap.borderL;
+
+        foreach (Coordinate coordinate in bordersL)
+        {
+            maze.SetTile(new Vector3Int(coordinate.x, coordinate.y, 0), borders[BORDER_L]);
+        }
+
+        List<Coordinate> bordersR = requestedMap.borderR;
+
+        foreach (Coordinate coordinate in bordersR)
+        {
+            maze.SetTile(new Vector3Int(coordinate.x, coordinate.y, 0), borders[BORDER_R]);
+        }
+
+        List<Coordinate> bordersU = requestedMap.borderU;
+
+        foreach (Coordinate coordinate in bordersU)
+        {
+            maze.SetTile(new Vector3Int(coordinate.x, coordinate.y, 0), borders[BORDER_U]);
+        }
+
+        List<Coordinate> bordersD = requestedMap.borderD;
+
+        foreach (Coordinate coordinate in bordersD)
+        {
+            maze.SetTile(new Vector3Int(coordinate.x, coordinate.y, 0), borders[BORDER_D]);
         }
 
         maze.SetTile(new Vector3Int(requestedMap.end.x, requestedMap.end.y, 0), end);

@@ -7,15 +7,14 @@ public class MapCreator : MonoBehaviour
 {
     [SerializeField]
     Tile unit;
-
     [SerializeField]
     bool tutorial;
-
     [SerializeField]
-    int tutorialNumber = 0;
-    
+    int tutorialNumber = 0;    
     [SerializeField]
-    int size;
+    int sizeX;
+    [SerializeField]
+    int sizeY;
 
     [SerializeField]
     Coordinate begin = new Coordinate();
@@ -30,9 +29,9 @@ public class MapCreator : MonoBehaviour
         maze = GetComponent<Tilemap>();
         maze.ClearAllTiles();
 
-        for (int i = 0; i <= size - 1; i++)
+        for (int i = 0; i <= sizeX - 1; i++)
         {
-            for (int j = 0; j <= size - 1; j++)
+            for (int j = 0; j <= sizeY - 1; j++)
             {
                 maze.SetTile(new Vector3Int(i, j, 0), unit);
             }
@@ -51,7 +50,12 @@ public class MapCreator : MonoBehaviour
         newMap.safes = new List<Coordinate>();
         newMap.empty = new List<Coordinate>();
         newMap.blockers = new List<Coordinate>();
-        newMap.size = size;
+        newMap.borderL = new List<Coordinate>();
+        newMap.borderR = new List<Coordinate>();
+        newMap.borderU = new List<Coordinate>();
+        newMap.borderD = new List<Coordinate>();
+        newMap.sizeX = sizeX;
+        newMap.sizeY = sizeY;
 
         if (tutorial)
         {
@@ -62,13 +66,14 @@ public class MapCreator : MonoBehaviour
             newMap.tutorial = -1;
         }
 
-        for (int i = 0; i <= size - 1; i++)
+        for (int i = 0; i <= sizeX - 1; i++)
         {
-            for (int j = 0; j <= size - 1; j++)
+            for (int j = 0; j <= sizeY - 1; j++)
             {
                 TileBase tile = maze.GetTile(new Vector3Int(i, j, 0));
                 if (tile != null)
                 {
+                    //Debug.Log(tile.name);
                     if ("Unit" == tile.name)
                     {
                         newMap.units.Add(new Coordinate(i, j));
@@ -92,6 +97,22 @@ public class MapCreator : MonoBehaviour
                     else if ("PortalOut" == tile.name)
                     {
                         newMap.portalout = new Coordinate(i, j);
+                    }
+                    else if ("BorderL" == tile.name)
+                    {
+                        newMap.borderL.Add(new Coordinate(i, j));
+                    }
+                    else if ("BorderR" == tile.name)
+                    {
+                        newMap.borderR.Add(new Coordinate(i, j));
+                    }
+                    else if ("BorderU" == tile.name)
+                    {
+                        newMap.borderU.Add(new Coordinate(i, j));
+                    }
+                    else if ("BorderD" == tile.name)
+                    {
+                        newMap.borderD.Add(new Coordinate(i, j));
                     }
                     else { }
                 }
