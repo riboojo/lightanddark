@@ -33,6 +33,7 @@ public class MapController : MonoBehaviour
     private TextAsset json;
 
     private Levels levelsInJson;
+    private Map currentMap;
 
     private const int MIN_SIZE = 9;
     private float[] SCALE_FACTORS = { 0, 0.1f, 0.175f, 0.25f, 0.3f, 0.35f, 0.4f, 0.45f, 0.475f, 0.5f, 0.525f };
@@ -41,6 +42,18 @@ public class MapController : MonoBehaviour
     const int BORDER_R = 1;
     const int BORDER_U = 2;
     const int BORDER_D = 3;
+
+    public enum tiletype
+    {
+        unit = 0,
+        blocker,
+        safe,
+        end,
+        portalOut,
+        portalIn,
+        border,
+        none
+    }
 
     private void Awake()
     {
@@ -58,12 +71,14 @@ public class MapController : MonoBehaviour
     private void Start()
     {
         levelsInJson = JsonUtility.FromJson<Levels>(json.text);
-        GenerateRequestedMap(levelsInJson.levels[0]);
+
+        currentMap = levelsInJson.levels[0];
+        GenerateRequestedMap(currentMap);
     }
 
     private void Update()
     {
-        
+
     }
 
     private void GenerateRequestedMap(Map requestedMap)
@@ -138,5 +153,47 @@ public class MapController : MonoBehaviour
 
         grid.localScale = new Vector3(1, 1, 1);
         grid.localScale -= new Vector3(grid.localScale.x * ratio, grid.localScale.y * ratio, 0);
+    }
+
+    public tiletype GetTileType(Coordinate coordinate)
+    {
+        tiletype ret = tiletype.none;
+
+        TileBase tile;
+        tile = maze.GetTile(new Vector3Int(coordinate.x, coordinate.y, 0));
+
+        if (tile != null)
+        {
+            if (tile.name == "Unit")
+            {
+                ret = tiletype.unit;
+            }
+            else if (tile.name == "Blocker")
+            {
+                ret = tiletype.blocker;
+            }
+            else if (tile.name == "Safe")
+            {
+                ret = tiletype.safe;
+            }
+            else if (tile.name == "End")
+            {
+                ret = tiletype.end;
+            }
+            else if (tile.name == "PortalOut")
+            {
+                ret = tiletype.portalOut;
+            }
+            else if (tile.name == "PortalIn")
+            {
+                ret = tiletype.portalIn;
+            }
+            else if (tile.name == "BorderL" || tile.name == "BorderR" || tile.name == "BorderU" || tile.name == "BorderD")
+            {
+                ret = tiletype.border;
+            }
+        }
+        
+        return ret;
     }
 }

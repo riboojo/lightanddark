@@ -3935,7 +3935,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4072,14 +4072,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b344f109fbe1364aa4e164b6e13d358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maze: {fileID: 594114702}
+  grid: {fileID: 1851415742}
   unit: {fileID: 11400000, guid: 696a3783a1bb819428b6ac5532f9b056, type: 2}
   safe: {fileID: 11400000, guid: 477a7c09d80044e4a8be342595bf2194, type: 2}
   end: {fileID: 11400000, guid: 9ad6cfcb1f81ed84799625b0a0240b84, type: 2}
   blocker: {fileID: 11400000, guid: c7daef4d74ea2f749a288c4b8d1dc105, type: 2}
   portalIn: {fileID: 11400000, guid: 1c7e3a67258e94d4ab5d926881bb64ea, type: 2}
   portalOut: {fileID: 11400000, guid: c2a1ff1c51c60db49a56bddab761d64e, type: 2}
-  maze: {fileID: 594114702}
-  newGame: {fileID: 0}
-  initialLevel: 0
-  finalLevel: 8
+  borders:
+  - {fileID: 11400000, guid: 428a1f4ae6201894b960984382f6827c, type: 2}
+  - {fileID: 11400000, guid: 106693f3bc7ad57488738ea8416d557e, type: 2}
+  - {fileID: 11400000, guid: 154bed4ed5057ba47a7a031ac0a92c8d, type: 2}
+  - {fileID: 11400000, guid: 43deacf33a7924548a5b6d58a45a4acd, type: 2}
   json: {fileID: 4900000, guid: d8ed98a350d79bd46b8c181504c06fd8, type: 3}

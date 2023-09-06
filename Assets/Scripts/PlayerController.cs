@@ -68,28 +68,68 @@ public class PlayerController : MonoBehaviour
         if (isPressedA && Input.GetKeyUp(KeyCode.A))
         {
             isPressedA = false;
-            positionChanged = true;
-            playerPosition.x--;
+            LeftMoveRequested();
         }
         else if (isPressedD && Input.GetKeyUp(KeyCode.D))
         {
             isPressedD = false;
-            positionChanged = true;
-            playerPosition.x++;
+            RightMoveRequested();
         }
         else if (isPressedW && Input.GetKeyUp(KeyCode.W))
         {
             isPressedW = false;
-            positionChanged = true;
-            playerPosition.y++;
+            UpMoveRequested();
         }
         else if (isPressedS && Input.GetKeyUp(KeyCode.S))
         {
             isPressedS = false;
+            DownMoveRequested();
+        }
+        else { /* No nothing */ }
+    }
+
+    void LeftMoveRequested()
+    {
+        Coordinate requested = new Coordinate(playerPosition.x - 1, playerPosition.y);
+
+        if (CanMove(requested))
+        {
+            positionChanged = true;
+            playerPosition.x--;
+        }
+    }
+
+    void RightMoveRequested()
+    {
+        Coordinate requested = new Coordinate(playerPosition.x + 1, playerPosition.y);
+
+        if (CanMove(requested))
+        {
+            positionChanged = true;
+            playerPosition.x++;
+        }
+    }
+
+    void UpMoveRequested()
+    {
+        Coordinate requested = new Coordinate(playerPosition.x, playerPosition.y + 1);
+
+        if (CanMove(requested))
+        {
+            positionChanged = true;
+            playerPosition.y++;
+        }
+    }
+
+    void DownMoveRequested()
+    {
+        Coordinate requested = new Coordinate(playerPosition.x, playerPosition.y -1);
+
+        if (CanMove(requested))
+        {
             positionChanged = true;
             playerPosition.y--;
         }
-        else { /* No nothing */ }
     }
 
     void UpdatePlayerPosition()
@@ -99,6 +139,31 @@ public class PlayerController : MonoBehaviour
             playerMap.ClearAllTiles();
             playerMap.SetTile(new Vector3Int(playerPosition.x, playerPosition.y, 0), playerTile);
         }
+    }
+
+    bool CanMove(Coordinate requested)
+    {
+        bool ret = false;
+        MapController.tiletype tile;
+
+        tile = MapController.GetInstance.GetTileType(requested);
+
+        switch (tile)
+        {
+            case MapController.tiletype.none:
+            case MapController.tiletype.safe:
+            case MapController.tiletype.portalIn:
+                ret = true;
+                break;
+            case MapController.tiletype.end:
+                // TODO: Level Finished
+                Debug.Log("Level Finished");
+                break;
+            default:
+                break;
+        }
+
+        return ret;
     }
 
     public void SetPlayerPosition(Coordinate pos)
