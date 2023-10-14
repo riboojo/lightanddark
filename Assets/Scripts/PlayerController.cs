@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        CheckInputs();
+        //CheckInputs();
+        CheckTouch();
         UpdatePlayerPosition();
     }
 
@@ -88,7 +89,12 @@ public class PlayerController : MonoBehaviour
         else { /* No nothing */ }
     }
 
-    void LeftMoveRequested()
+    void CheckTouch()
+    {
+
+    }
+
+    public void LeftMoveRequested()
     {
         Coordinate requested = new Coordinate(playerPosition.x - 1, playerPosition.y);
 
@@ -99,7 +105,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void RightMoveRequested()
+    public void RightMoveRequested()
     {
         Coordinate requested = new Coordinate(playerPosition.x + 1, playerPosition.y);
 
@@ -110,7 +116,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpMoveRequested()
+    public void UpMoveRequested()
     {
         Coordinate requested = new Coordinate(playerPosition.x, playerPosition.y + 1);
 
@@ -121,7 +127,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DownMoveRequested()
+    public void DownMoveRequested()
     {
         Coordinate requested = new Coordinate(playerPosition.x, playerPosition.y -1);
 
@@ -170,4 +176,5 @@ public class PlayerController : MonoBehaviour
     {
         playerPosition = pos;
     }
+    
 }
